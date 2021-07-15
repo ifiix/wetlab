@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>iPerform</title>
+  <meta name="description" content="iPerform form submissions in Google Sheets">
+  
+
+  <link rel="stylesheet" href="mainwet.css">
+  
+</head>
+<body>
+<p class="aligncenter">
+    <img src="https://drive.google.com/uc?id=1v8JCa51u_sqBmBm3Ce0wOk-ZjnZdAP3V" alt="centered image"width="200" height="100" />
+<style>
+.aligncenter {
+    text-align: center;
+}
+</style>
+<h1 id="header_1" class="form-header" data-component="header" align="Middle">
+              iPerform Wet Lab Team
+            </h1>
+</div>
+<br>
+  <div class="form-container">
+    <form name="submit-to-google-sheet">
+      <b>Select Date</b>
+      <input type="date" name="date" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Perform Date" required/>
+      <input type="text" name="eid" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Employee ID" required/>
+      <input type="text" name="job" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Number of Job"/>
+      <input type="text" name="ds" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Dimensional Stability"/>
+      <input type="text" name="app" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Appearence After Wash"/>
+      <input type="text" name="pd" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Print Durability"/>
+      <input type="text" name="dc" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Dry-clean Test"/> 
+      <input type="text" name="prep" data-type="input-textbox" class="form-textbox" size="20" value="" data-component="textbox" placeholder="Number of Preparation"/>     
+   
+          
+   
+     <button type="submit">Submit</button><b><br></br>
+</div>
+ 
+
+      
+</form>
+
+ <div class="loading js-loading is-hidden">
+      <div class="loading-spinner">
+        <svg><circle cx="25" cy="25" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg>
+      </div>
+    </div>
+    <p class="js-success-message is-hidden"><b>Thank You!<b/></p>
+    <p class="js-error-message is-hidden">Error!</p>
+  </div>
+  
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbweE3BLcVAxRlRBtLgInoizq5SOY-klK0XX9sxLRQhKuBxt_DVX/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const loading = document.querySelector('.js-loading')
+    const successMessage = document.querySelector('.js-success-message')
+    const errorMessage = document.querySelector('.js-error-message')
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      showLoadingIndicator()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form),mode: 'no-cors'})      
+        .then(response => showSuccessMessage(response))
+        .catch(error => showErrorMessage(error))
+    })
+    function showLoadingIndicator () {
+      form.classList.add('is-hidden')
+      loading.classList.remove('is-hidden')
+    }
+    function showSuccessMessage (response) {
+      console.log('Success!', response)
+      setTimeout(() => {
+        successMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+    function showErrorMessage (error) {
+      console.error('Error!', error.message)
+      setTimeout(() => {
+        errorMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+  </script>
+
+<br>
+<br>
+<footer align="center">
+    <p>Team iFiix@2021 </p>
+</footer>
+<tfoot style="text-align:center">
+</footer>
+</div>
+</body>
+</html>
